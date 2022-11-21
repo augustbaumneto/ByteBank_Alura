@@ -1,13 +1,25 @@
+/**
+ *   Classe main
+ */
+
 package main;
 
 import dadosfinanceiros.*;
+import dinheiro.*;
+
+/**
+ * @author August Neto
+ *
+ */
 
 public class CriaConta {
 
 	public static void main(String[] args) {
 		ContaCorrente conta1 = new ContaCorrente();
-		conta1.saldo = 200.00;
-		System.out.println(conta1.saldo);
+		Dinheiro valor = new Dinheiro(200, 50);
+		
+		conta1.saldo = valor;
+		System.out.println(conta1.saldo.retornaemDouble());
 	}
 
 }
