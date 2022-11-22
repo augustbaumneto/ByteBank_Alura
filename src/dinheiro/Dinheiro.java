@@ -3,6 +3,8 @@
  */
 package dinheiro;
 
+import java.math.*;
+
 /**
  * @author August Neto
  *
@@ -110,11 +112,16 @@ public class Dinheiro {
 	/*
 	 *  Verifica se centavos esta entre 0 e 100
 	 */
-	private boolean checacentavos(int valor) {
-		//TODO tratamento de erro se não for entre 99 e 0
+	private void checacentavos(int valor) {
+		int modulo = Math.abs(valor);
 		
-		
-		return(valor<100&&valor>=0);
-		
+		//Se valor estiver fora quebra o código
+		if (modulo>=100 || modulo < 0) {
+			IllegalArgumentException errocentavos = new IllegalArgumentException();
+			System.out.println("Centavos acima de 99 ou menos de 0");
+			throw errocentavos;
+		}	
 	}
+	
+	
 }
