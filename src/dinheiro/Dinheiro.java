@@ -3,7 +3,7 @@
  */
 package dinheiro;
 
-import java.math.*;
+//import java.math.*;
 
 /**
  * @author August Neto
@@ -69,15 +69,15 @@ public class Dinheiro {
 	 */
 	
 	public int getCentavos() {
-		return centavos;
+		return this.centavos;
 	}
 	
 	public int getReal() {
-		return real;
+		return this.real;
 	}
 	
 	public double getRestos() {
-		return restos;
+		return this.restos;
 	}
 	
 	/*
@@ -105,7 +105,7 @@ public class Dinheiro {
 	 */
 	
 	public double retornaemDouble() {
-		return (real*1.0)+centavos/100.0;
+		return (this.real*1.0)+this.centavos/100.0;
 		
 	}
 	
@@ -116,7 +116,7 @@ public class Dinheiro {
 		int modulo = Math.abs(valor);
 		
 		//Se valor estiver fora quebra o código
-		if (modulo>=100 || modulo < 0) {
+		if (modulo>=100) {
 			IllegalArgumentException errocentavos = new IllegalArgumentException();
 			System.out.println("Centavos acima de 99 ou menos de 0");
 			throw errocentavos;
