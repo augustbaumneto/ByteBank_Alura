@@ -46,6 +46,11 @@ public class CriaConta {
 		
 		System.out.println(conta2.getSaldo().retornaemDouble());
 		System.out.println(conta1.getSaldo().retornaemDouble());
+		System.out.println(ContaCorrente.getTotal());
+		
+		conta1.setAgencia("14562");
+		System.out.println(conta1.getAgencia());
+		
 	}
 
 }

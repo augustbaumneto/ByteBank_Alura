@@ -20,10 +20,7 @@ public class Dinheiro {
 	 */
 	
 	public Dinheiro() {
-		this.real = 0;
-		this.centavos = 0;
-		this.restos = 0.0;
-		this.positivo = true;
+		this(0,0,0.0);
 	}
 	
 	/**
@@ -56,14 +53,7 @@ public class Dinheiro {
 	 */
 	
 	public Dinheiro(int real, int centavos) {
-		this.real = real;
-		
-		//Verifica se o valor é válido
-		checacentavos(centavos);
-		this.centavos = centavos;
-		
-		this.restos = 0.0;
-		calculaSinal();
+		this(real,centavos,0.0);
 	}
 	
 	/**

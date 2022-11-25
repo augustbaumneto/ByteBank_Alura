@@ -13,22 +13,27 @@ import dinheiro.*;
  */
 
 
+
 public class ContaCorrente {
 
+	//Define o tamanho de digitos da conta e da agencia
+	private static final int QTD_DIGITO_AGENCIA = 5;
+	private static final int QTD_DIGITO_CONTA = 9;
+	
 	private Dinheiro saldo;
 	private String agencia;
 	private String numeroconta;
 	private Cliente titular;
+	//Soma a  quantidade de contas
+	private static int total;
 	
 	/**Construtor padrão
 	 * 
 	 * @param cliente REcebe o cliente dono da conta
 	 */
 	public ContaCorrente(Cliente cliente) {
-		this.saldo = new Dinheiro();
-		this.agencia = "";
-		this.numeroconta ="";
-		this.titular = cliente;
+		this(cliente,"","");
+		
 	}
 
 	/**
@@ -40,9 +45,12 @@ public class ContaCorrente {
 	 */
 	public ContaCorrente(Cliente cliente, String agencia, String numeroconta) {
 		this.saldo = new Dinheiro();
-		this.agencia = agencia;
-		this.numeroconta = numeroconta;
+		
+		setAgencia(agencia);
+		setNumeroconta(numeroconta);
+		
 		this.titular = cliente;
+		ContaCorrente.total = ContaCorrente.total+1;
 	}	
 	
 	
@@ -121,7 +129,18 @@ public class ContaCorrente {
 	 * @param agencia	O numero da agencia
 	 */
 	public void setAgencia(String agencia) {
-		this.agencia = agencia;
+
+		checaAgencia(agencia);
+		
+		int zeros = QTD_DIGITO_AGENCIA - agencia.length();
+		
+		String acerto = "";
+		
+		for (int i=0; i < zeros; i=i+1) {
+			acerto = "0"+acerto;
+		}
+		
+		this.agencia = acerto+agencia;
 	}
 	
 	/**
@@ -141,7 +160,18 @@ public class ContaCorrente {
 	 * 
 	 */
 	public void setNumeroconta(String numeroconta) {
-		this.numeroconta = numeroconta;
+		checaNumeroConta(numeroconta);
+		
+		int zeros = QTD_DIGITO_CONTA - numeroconta.length();
+		
+		String acerto = "";
+		
+		for (int i=0; i < zeros; i=i+1) {
+			acerto = "0"+acerto;
+		}
+		
+		this.numeroconta = acerto+numeroconta;
+
 	}
 	
 	/**
@@ -174,4 +204,73 @@ public class ContaCorrente {
 	public Cliente getTitular() {
 		return titular;
 	}
+	
+	/**
+	 * 
+	 * 
+	 * @return int O Total de contas criadas
+	 */
+	public static int getTotal() {
+		return total;
+	}
+	
+	/**
+	 * 
+	 * Checa as regras da agencia
+	 * 
+	 * @param dado	string da agência
+	 */
+	private void checaAgencia(String dado) {
+		int tamanho =  dado.length();
+		//Agência possui mais de 5 digitos
+		if (tamanho>QTD_DIGITO_CONTA) {
+				IllegalArgumentException erroagencia = new IllegalArgumentException();
+				System.out.println("Agencia com mais de 5 digitos");
+				throw erroagencia;
+		}	
+		if (tamanho==1) {
+			IllegalArgumentException erroagencia = new IllegalArgumentException();
+			System.out.println("Agencia com apenas 1 digito");
+			throw erroagencia;
+		}
+		
+		
+		if (!dado.equals("")) {
+			//Verifica se os 4 primeiros digitos são numeros senão estora erro de formato
+			String base = dado.substring(0,tamanho-1);
+			Integer.parseInt(base);
+		}
+				
+	}
+
+	/**
+	 * 
+	 * Checa numero da conta
+	 * 
+	 * @param dado	string da agência
+	 */
+	private void checaNumeroConta(String dado) {
+		int tamanho =  dado.length();
+		//Numero possui mais de 8 digitos não possui 9 digitos
+		if (tamanho>QTD_DIGITO_CONTA) {
+				IllegalArgumentException erronumero = new IllegalArgumentException();
+				System.out.println("Numero da conta com mais de 9 digitos");
+				throw erronumero;
+		}	
+		if (tamanho==1) {
+			IllegalArgumentException erronumero = new IllegalArgumentException();
+			System.out.println("Numero da conta com apenas 1 digito");
+			throw erronumero;
+		}
+		
+		
+		if (!dado.equals("")) {
+			//Verifica se os 8 primeiros digitos são numeros senão estora erro de formato
+			String base = dado.substring(0,tamanho-1);
+			Integer.parseInt(base);
+			System.out.println(base);
+		}
+				
+	}	
+	
 }
